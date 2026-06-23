@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">ViewsGroupLista</string>
+    <string name="hint_nome">Nome completo</string>
+    <string name="hint_endereco">Endereço</string>
+    <string name="hint_cidade">Cidade</string>
+    <string name="hint_email">E-mail</string>
+    <string name="hint_telefone">Telefone</string>
+    <string name="hint_cep">CEP</string>
+    <string name="hint_aniversario">Data de Aniversário</string>
+    <string name="desc_calendario">Abrir calendário</string>
+</resources>
