@@ -5,29 +5,36 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
+import android.hardware.lights.LightState;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
 import androidx.annotation.Nullable;
 
+import java.util.List;
+
 public class SimplePaint extends View {
-    Paint mPaint;
-    Path mPath;
+    List<Paint> mPaintList;
+    List<Path> mPathList;
+    Paint currentPaint;
+    Path currentPath;
+
     public SimplePaint(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
-        mPaint=new Paint();
-        mPath=new Path();
+
+        currentPaint=new Paint();
+        currentPath=new Path();
         //configurando paint
-        mPaint.setColor(Color.RED);
-        mPaint.setStyle(Paint.Style.STROKE);
-        mPaint.setStrokeWidth(20);
+        currentPaint.setColor(Color.RED);
+        currentPaint.setStyle(Paint.Style.STROKE);
+        currentPaint.setStrokeWidth(20);
     }
 
     @Override
     protected void onDraw(Canvas canvas){
         super.onDraw(canvas);
-        canvas.drawPath(mPath, mPaint);
+        canvas.drawPath(currentPath, currentPaint);
     }
 
     @Override
@@ -38,20 +45,24 @@ public class SimplePaint extends View {
 
         switch (event.getAction()) {
             case (MotionEvent.ACTION_DOWN):
-                mPath.moveTo(lx, ly);
-                mPath.lineTo(lx, ly);
+                currentPath.moveTo(lx, ly);
+                currentPath.lineTo(lx, ly);
                 break;
             case (MotionEvent.ACTION_MOVE):
-                mPath.lineTo(lx, ly);
+                currentPath.lineTo(lx, ly);
                 break;
             case (MotionEvent.ACTION_UP):
-                mPath.lineTo(lx, ly);
+                currentPath.lineTo(lx, ly);
                 break;
             default:
                 break;
         }
         invalidate();
         return true;
+    }
+
+    public void setColor(int color) {
+        currentPaint.setColor(color);
     }
 }
 
