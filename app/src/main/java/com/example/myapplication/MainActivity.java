@@ -1,41 +1,29 @@
 package com.example.myapplication;
-
 import android.os.Bundle;
-import android.widget.Button;
-import android.widget.TextView;
-
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-
-    TextView tv;
-    Button botao;
-    int i = 0;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
 
-        tv = findViewById(R.id.textView);
-        botao = findViewById(R.id.botao);
+        //visual na vertical
+        RecyclerView recyclerView = findViewById(R.id.recyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        tv.setText(Integer.toString(i));
+        List<Filme> filmes = new ArrayList<>();
+        filmes.add(new Filme("Anos da Noite", "1972"));
+        filmes.add(new Filme("Sonic", "2026"));
+        filmes.add(new Filme("Hobbit", "2000"));
+        filmes.add(new Filme("João e Maria", "2005"));
 
-        botao.setOnClickListener(v -> {
-            i++;
-            tv.setText(Integer.toString(i));
-        });
-
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
+        //conexao da lista ao adapter e conexao do adapter ao recyclerview
+        FilmeAdapter adapter = new FilmeAdapter(filmes);
+        recyclerView.setAdapter(adapter);
     }
 }
